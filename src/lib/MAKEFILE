@@ -1,0 +1,33 @@
+
+# 生成するファイル
+PROJ	 = doslib
+
+# 推論規則用
+AFLAGS	= /c /Sa /Fl$*.lst
+
+# ライブラリに含めるファイル
+
+ERR	= int21err.obj
+MEMORY	= smallcom.obj smallexe.obj mopen.obj mclose.obj
+FILE	= fcreate.obj fopen.obj fclose.obj fload.obj floads.obj fwrite.obj fseek.obj chngedir.obj chngeext.obj
+
+CNV_10D	= c_s10_b.obj  c_s10_w.obj
+CNV_D10	= c_b_s10.obj  c_w_s10.obj c_dw_s10.obj c_sb_s10.obj c_sw_s10.obj
+CNV_F10	= c_b_s10f.obj c_w_s10f.obj
+CNV10	= $(CNV_10D) $(CNV_D10) $(CNV_F10)
+CNV16	= c_s16_b.obj c_s16_w.obj c_b_s16.obj c_w_s16.obj
+KEY	= inputi10.obj
+STD	= rand.obj
+CALC	= mul32.obj
+
+# DOS エラー処理
+$(PROJ).lib : $(ERR) $(MEMORY) $(FILE) $(CNV10) $(CNV16) $(KEY) $(STD) $(CALC)
+	msdos lib $(PROJ) -+ $(ERR);
+	msdos lib $(PROJ) -+ $(MEMORY);
+	msdos lib $(PROJ) -+ $(FILE);
+	msdos lib $(PROJ) -+ $(CNV10);
+	msdos lib $(PROJ) -+ $(CNV16);
+	msdos lib $(PROJ) -+ $(KEY);
+	msdos lib $(PROJ) -+ $(STD);
+	msdos lib $(PROJ) -+ $(CALC);
+	del *.obj

@@ -1,0 +1,15 @@
+
+PORJLIST = asn2txt.exe
+
+LIBFILE	= lib\doslib.lib
+
+FILES	= asn2txt.obj option.obj
+
+AFLAGS	= /c /Fe$* /Sa /Fl$*.lst
+LFLAGS	= /link $(LIBFILE)
+
+all :	$(PORJLIST) $(LIBFILE)
+	del *.bak
+
+$(PORJLIST) : $(FILES) $(LIBFILE)
+	link $(FILES),,,$(LIBFILE);

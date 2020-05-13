@@ -1,0 +1,9 @@
+
+.old
+
+# Files built by Macro Assembler
+*.obj
+*.lst
+*.map
+*.log
+*.bak
